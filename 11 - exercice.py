@@ -8,36 +8,38 @@
 
 import random
 # générer un chiffre aléatoire entre 1 et 10
-number = random.randint(1, 9)
+number = random.randint(1, 10)
 num_found = False
 print(number)
 
 i = 3
 # l'utilisateur aura 3 chances pour trouver le chiffre secret
-count = 3
+lives = 3
 
-while count > 0:
-    while not num_found:
+while lives > 0:
+    if not num_found:
         question = int(input('Try guessing my number'))
+        while question > 10 or question < 1:
+            print("Choisis un bon chiffre enculé")
+            question = int(input('Try guessing my number'))
         if question == number:
             num_found = True
         # si le chiffre proposé par l'internaute est supérieur au chiffre secret lui indiquer que son chiffre est trop grand
         # et lui indiquer le nombre de poinds de vie restant
         elif question > number:
-            count -= 1
+            lives -= 1
             print('Your number is too high')
-            print(f'Wrong answer, you only have {count} lives')
+            print(f'Wrong answer, you only have {lives} ')
         # si le chiffre proposé par l'internaute est inférieur au chiffre secret lui indiquer que son chiffre est trop petit
         # et lui indiquer le nombre de poinds de vie restant
         elif question < number:
-            count -= 1
+            lives -= 1
             print('Your number is too low')
-            print(f'Wrong answer, you only have {count} lives')
-        # si il trouve le chiffre secret avant d'avoir écouler ses 3 chances -> la partie s'arrête c'est gagné
-        # si il ne trouve pas le chiffre secret avant d'avoir écouler ses 3 chances -> la partie s'arrête c'est perdu
-        if count == 0:
-            print("Sorry, you have lost the game")
-            break
+            print(f'Wrong answer, you only have {lives} ')
     else:
         print('Congratulations, you did it')
         break
+# si il trouve le chiffre secret avant d'avoir écouler ses 3 chances -> la partie s'arrête c'est gagné
+# si il ne trouve pas le chiffre secret avant d'avoir écouler ses 3 chances -> la partie s'arrête c'est perdu
+else:
+    print("Sorry, you have lost the game")
